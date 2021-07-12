@@ -136,6 +136,8 @@ void print_color_string(enum output_type type,
 		else
 			jsonw_string_field(_jw, key, value);
 	} else if (_IS_FP_CONTEXT(type)) {
+	    //打印走了这里，如果不指定 -json 的话
+	    //修改这个函数使其能够进行logcat打印
 		color_fprintf(stdout, color, fmt, value);
 	}
 }

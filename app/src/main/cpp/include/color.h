@@ -1,6 +1,11 @@
 #ifndef __COLOR_H__
 #define __COLOR_H__ 1
 
+#include <android/log.h>
+#include <jni.h>
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, "Q_M", __VA_ARGS__)
+
+
 enum color_attr {
 	COLOR_IFNAME,
 	COLOR_MAC,

@@ -1655,12 +1655,16 @@ static int ipaddr_list_flush_or_save(int argc, char **argv, int action) {
                                             ainfo->head,
                                             stdout);
         } else if (no_link ||
+                   //应该是在这里打印出来的
                    (res = print_linkinfo(NULL, &l->h, stdout)) >= 0) {
-            if (filter.family != AF_PACKET)
+            if (filter.family != AF_PACKET) {
                 print_selected_addrinfo(ifi,
                                         ainfo->head, stdout);
-            if (res > 0 && !do_link && show_stats)
+            }
+
+            if (res > 0 && !do_link && show_stats) {
                 print_link_stats(stdout, &l->h);
+            }
         }
         close_json_object();
     }
