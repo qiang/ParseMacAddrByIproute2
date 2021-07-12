@@ -1,0 +1,2 @@
+rootProject.name = "ParseMacAddrByIproute2"
+include ':app'
