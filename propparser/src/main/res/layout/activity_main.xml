@@ -22,6 +22,12 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="getByShell"
+        android:text="通过shell读取serialno" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:onClick="click"
         android:text="在文件中读取serialno" />
 

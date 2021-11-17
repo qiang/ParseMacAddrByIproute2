@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         getPropByApi();
     }
 
-//    Android 10及以上：分为以下两种情况：
+    //    Android 10及以上：分为以下两种情况：
 //    targetSdkVersion<29：没有申请权限的情况，调用Build.getSerial()方法时抛出java.lang.SecurityException异常；申请了权限，通过Build.getSerial()方法获取到的设备序列号为“unknown”
 //    targetSdkVersion=29：无论是否申请了权限，调用Build.getSerial()方法时都会直接抛出java.lang.SecurityException异常
     @SuppressLint("MissingPermission")
@@ -90,5 +90,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void readMeme(View view) {
         parsePropInMemroy();
+    }
+
+    public void getByShell(View view) {
+        ShellUtil.CommandResult result = ShellUtil.execCommand("getprop | grep serialno", false);
+
+        Log.d("Q_M", "Shell 读取: " + result.responseMsg);
     }
 }
