@@ -38,5 +38,11 @@
         android:text="在当前进程读取serialno" />
 
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="mapPropMemo"
+        android:text="重新映射匿名内存" />
+
 
 </LinearLayout>

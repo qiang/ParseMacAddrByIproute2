@@ -9,14 +9,18 @@ cmake_minimum_required(VERSION 3.10.2)
 
 project("propparser")
 
-include_directories(include .)
+include_directories(system_properties/include)
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
-aux_source_directory(lib sourceList)
+# 查找当前目录下的所有源文件
+# 并将名称保存到 DIR_SRCS 变量
+aux_source_directory(. DIR_SRCS)
+
+add_subdirectory(system_properties)
 
 
 add_library( # Sets the name of the library.
@@ -24,17 +28,7 @@ add_library( # Sets the name of the library.
 
         # Sets the library as a shared library.
         SHARED
-        ${sourceList}
-        #             ip.c
-        #             iplink.c
-        #             iplink_xdp.c
-        #             iplink_vrf.c
-        #             iplink_xstats.c
-        #             ipaddress.c
         # Provides a relative path to your source file(s).
-        prop_info.cpp
-        macros.cpp
-        prop_area.cpp
         native-lib.cpp)
 
 
@@ -55,9 +49,10 @@ find_library( # Sets the name of the path variable.
 # can link multiple libraries, such as libraries you define in this
 # build script, prebuilt third-party libraries, or system libraries.
 
+
 target_link_libraries( # Specifies the target library.
         native-lib
-
+        system_properties
         # Links the target library to the log library
         # included in the NDK.
         ${log-lib})

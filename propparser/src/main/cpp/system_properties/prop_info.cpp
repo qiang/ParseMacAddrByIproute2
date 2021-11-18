@@ -1,4 +1,4 @@
-#include "prop_info.h"
+#include "./include/prop_info.h"
 
 #include <string.h>
 

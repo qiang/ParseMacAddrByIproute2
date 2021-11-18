@@ -6,7 +6,7 @@
 #define PARSEMACADDRBYIPROUTE2_MACROS_H
 
 
-#include <stdint.h>
+#include "stdint.h"
 
 #define BIONIC_DISALLOW_COPY_AND_ASSIGN(TypeName) \
   TypeName(const TypeName&) = delete;             \

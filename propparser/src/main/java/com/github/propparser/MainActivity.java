@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     public native void parsePropInMemroy();
 
+    public native void mapPropInMemroy();
+
     public native void getPropByApi();
 
     public void click(View view) {
@@ -96,5 +98,9 @@ public class MainActivity extends AppCompatActivity {
         ShellUtil.CommandResult result = ShellUtil.execCommand("getprop | grep serialno", false);
 
         Log.d("Q_M", "Shell 读取: " + result.responseMsg);
+    }
+
+    public void mapPropMemo(View view) {
+        mapPropInMemroy();
     }
 }
