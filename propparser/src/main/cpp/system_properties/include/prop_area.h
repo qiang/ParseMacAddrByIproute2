@@ -1,3 +1,6 @@
+#ifndef ANDROID10DEVICEFINGERPRINT_SYSTEM_PROPERAREA_H
+#define ANDROID10DEVICEFINGERPRINT_SYSTEM_PROPERAREA_H
+
 #include <sys/mman.h>
 #include "stdatomic.h"
 #include "stdint.h"
@@ -162,3 +165,5 @@ private:
 
     BIONIC_DISALLOW_COPY_AND_ASSIGN(prop_area);
 };
+
+#endif

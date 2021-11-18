@@ -181,7 +181,7 @@ namespace android {
         }
 
         bool PropertyInfoAreaFile::LoadDefaultPath() {
-            return LoadPath("/dev/__properties__/property_info");
+            return LoadPath("/data/local/tmp/dev/__properties__/property_info");
         }
 
         bool PropertyInfoAreaFile::LoadPath(const char* filename) {
@@ -209,6 +209,7 @@ namespace android {
                 return false;
             }
 
+            //property_info_area 代表的是 property_info 这个文件内存映射
             auto property_info_area = reinterpret_cast<PropertyInfoArea*>(map_result);
             if (property_info_area->minimum_supported_version() > 1 ||
                 property_info_area->size() != mmap_size) {

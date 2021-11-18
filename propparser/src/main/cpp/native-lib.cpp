@@ -3,6 +3,7 @@
 #include<android/log.h>
 #include "./system_properties/include/prop_area.h"
 #include "./property_service/include/property_info_parser.h"
+#include "./system_properties/include/system_properties.h"
 
 #define TAG    "Q_M" // 这个是自定义的LOG的标识
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG,TAG ,__VA_ARGS__) // 定义LOGD类型
@@ -106,13 +107,11 @@ Java_com_github_propparser_MainActivity_parsePropInMemroy(JNIEnv *env, jobject t
     }
 }
 
-
-//https://cs.android.com/android/platform/superproject/+/master:bionic/libc/system_properties/system_properties.cpp;drc=master;l=61
-extern "C"
-JNIEXPORT void JNICALL
-Java_com_github_propparser_MainActivity_mapPropInMemroy(JNIEnv *env, jobject thiz) {
+int testProp() {
     android::properties::PropertyInfoAreaFile property_info_area_file_;
-//cp /dev/__properties__/property_info /data/local/tmp/property_info
+    //cp /dev/__properties__/property_info /data/local/tmp/property_info
+    //cp /dev/__properties__/properties_serial /data/local/tmp/properties_serial
+    //cp /dev/__properties__/u:object_r:default_prop:s0 /data/local/tmp/u:object_r:default_prop:s0
     property_info_area_file_.LoadPath("/data/local/tmp/property_info");
 
     //context 是 "u:object_r:bluetooth_prop:s0"
@@ -154,7 +153,22 @@ Java_com_github_propparser_MainActivity_mapPropInMemroy(JNIEnv *env, jobject thi
         LOGD("child_node ==> %s",
              rootNode.child_node(i).name());
     }
+}
 
+//https://cs.android.com/android/platform/superproject/+/master:bionic/libc/system_properties/system_properties.cpp;drc=master;l=61
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_github_propparser_MainActivity_mapPropInMemroy(JNIEnv *env, jobject thiz) {
 
+    //cp /dev/__properties__/property_info /data/local/tmp/property_info
+    //cp /dev/__properties__/properties_serial /data/local/tmp/properties_serial
+    //cp /dev/__properties__/u:object_r:default_prop:s0 /data/local/tmp/u:object_r:default_prop:s0
+    static SystemProperties system_properties;
+    system_properties.Init("/data/local/tmp/dev/__properties__");
 
+//    const prop_info *ppp = system_properties.Find("init.svc.init-fingerprint-sh");
+    const prop_info *ppp = system_properties.Find("ro.serialno");
+
+    LOGD("ppp ==> %s = %s",
+         ppp->name, ppp->value);
 }
