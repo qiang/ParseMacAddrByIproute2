@@ -21,6 +21,7 @@ include_directories(system_properties/include)
 aux_source_directory(. DIR_SRCS)
 
 add_subdirectory(system_properties)
+add_subdirectory(property_service)
 
 
 add_library( # Sets the name of the library.
@@ -53,6 +54,7 @@ find_library( # Sets the name of the path variable.
 target_link_libraries( # Specifies the target library.
         native-lib
         system_properties
+        property_service
         # Links the target library to the log library
         # included in the NDK.
         ${log-lib})
