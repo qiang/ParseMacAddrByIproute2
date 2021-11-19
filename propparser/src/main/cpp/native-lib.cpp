@@ -42,7 +42,7 @@ Java_com_github_propparser_MainActivity_getPropByApi(JNIEnv *env, jobject thiz) 
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_github_propparser_MainActivity_parsePropInMemroy(JNIEnv *env, jobject thiz) {
+Java_com_github_propparser_MainActivity_parsePropInMemory(JNIEnv *env, jobject thiz) {
 
     char buf[256];
     FILE *fp;
@@ -158,17 +158,33 @@ int testProp() {
 //https://cs.android.com/android/platform/superproject/+/master:bionic/libc/system_properties/system_properties.cpp;drc=master;l=61
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_github_propparser_MainActivity_mapPropInMemroy(JNIEnv *env, jobject thiz) {
+Java_com_github_propparser_MainActivity_SystemPropService(JNIEnv *env, jobject thiz) {
 
     //cp /dev/__properties__/property_info /data/local/tmp/property_info
     //cp /dev/__properties__/properties_serial /data/local/tmp/properties_serial
     //cp /dev/__properties__/u:object_r:default_prop:s0 /data/local/tmp/u:object_r:default_prop:s0
     static SystemProperties system_properties;
-    system_properties.Init("/data/local/tmp/dev/__properties__");
 
-//    const prop_info *ppp = system_properties.Find("init.svc.init-fingerprint-sh");
-    const prop_info *ppp = system_properties.Find("ro.serialno");
+    bool fsetxattr_failed = false;
+    //注意 PropertyInfoAreaFile::LoadDefaultPath() 里面的默认路径，最好改成要测试的文件
+    system_properties.AreaInit("/data/local/tmp/dev/__properties__", &fsetxattr_failed);
 
+    const prop_info *ppp = system_properties.Find("init.svc.init-fingerprint-sh");
+    LOGD("ppp ==> %s = %s",
+         ppp->name, ppp->value);
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_github_propparser_MainActivity_SystemPropClient(JNIEnv *env, jobject thiz) {
+    static SystemProperties system_properties;
+    system_properties.Init("/dev/__properties__");
+
+    //也就是说崩溃的原因是因为，无法加载  u:object_r:serialno_prop:s0 这个文件，为什么？
+    //avc: denied { read } for name="u:object_r:serialno_prop:s0" dev="tmpfs" ino=20274 scontext=u:r:untrusted_app:s0:c107,c256,c512,c768 tcontext=u:object_r:serialno_prop:s0 tclass=file permissive=0 app=com.github.propparser
+//    const prop_info *ppp = system_properties.Find("ro.serialno");
+    const prop_info *ppp = system_properties.Find(
+            "init.svc.init-fingerprint-sh");  //这个就在 "/dev/__properties__/u:object_r:default_prop:s0" 这个文件里面
     LOGD("ppp ==> %s = %s",
          ppp->name, ppp->value);
 }

@@ -41,9 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
     public native void parsePropFile();
 
-    public native void parsePropInMemroy();
+    public native void parsePropInMemory();
 
-    public native void mapPropInMemroy();
+    public native void SystemPropService();
+
+    public native void SystemPropClient();
 
     public native void getPropByApi();
 
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void readMeme(View view) {
-        parsePropInMemroy();
+        parsePropInMemory();
     }
 
     public void getByShell(View view) {
@@ -100,7 +102,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Q_M", "Shell 读取: " + result.responseMsg);
     }
 
-    public void mapPropMemo(View view) {
-        mapPropInMemroy();
+    public void systemProService(View view) {
+        SystemPropService();
+    }
+
+    public void systemProClient(View view) {
+        SystemPropClient();
     }
 }

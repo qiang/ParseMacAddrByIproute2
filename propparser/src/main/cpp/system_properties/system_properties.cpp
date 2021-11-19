@@ -53,8 +53,9 @@ bool SystemProperties::Init(const char *filename) {
     strcpy(property_filename_, filename);
 
     if (is_dir(property_filename_)) {
-//        if (access("/dev/__properties__/property_info", R_OK) == 0) {
-        if (access("/data/local/tmp/dev/__properties__/property_info", R_OK) == 0) {
+        //后面分析，这个 方法是app进程走的，那么一般来说app进程是无法访问这个文件的。所以我们不用模拟？？
+        if (access("/dev/__properties__/property_info", R_OK) == 0) {
+//        if (access("/data/local/tmp/dev/__properties__/property_info", R_OK) == 0) {
             contexts_ = new(contexts_data_) ContextsSerialized();
             if (!contexts_->Initialize(false, property_filename_, nullptr)) {
                 return false;

@@ -181,7 +181,8 @@ namespace android {
         }
 
         bool PropertyInfoAreaFile::LoadDefaultPath() {
-            return LoadPath("/data/local/tmp/dev/__properties__/property_info");
+//            return LoadPath("/data/local/tmp/dev/__properties__/property_info");
+            return LoadPath("/dev/__properties__/property_info");
         }
 
         bool PropertyInfoAreaFile::LoadPath(const char* filename) {

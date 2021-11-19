@@ -41,8 +41,14 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="mapPropMemo"
-        android:text="重新映射匿名内存" />
+        android:onClick="systemProService"
+        android:text="模拟SystemProperties 服务创建过程" />
 
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="systemProClient"
+        android:text="模拟SystemProperties 客户端创建" />
 
 </LinearLayout>
