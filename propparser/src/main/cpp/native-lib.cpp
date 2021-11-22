@@ -38,6 +38,15 @@ Java_com_github_propparser_MainActivity_getPropByApi(JNIEnv *env, jobject thiz) 
     char temp2[0x2800u];
     __system_property_get("ro.vendor.serialno", temp2);
     LOGD("__system_property_get==> ro.vendor.serialno %s", temp2);
+
+    __system_property_get("vendor.boot.serialno", temp2);
+    LOGD("__system_property_get==> vendor.boot.serialno %s", temp2);
+
+    __system_property_get("persist.radio.serialno", temp2);
+    LOGD("__system_property_get==> persist.radio.serialno %s", temp2);
+
+    __system_property_get("ro.boot.serialno", temp2);
+    LOGD("__system_property_get==> ro.boot.serialno %s", temp2);
 }
 
 extern "C"
@@ -62,7 +71,8 @@ Java_com_github_propparser_MainActivity_parsePropInMemory(JNIEnv *env, jobject t
             continue;
 
 //        if (strstr(buf, "/dev/__properties__/u:object_r:vendor_default_prop:s0") != nullptr) {
-        if (strstr(buf, "/dev/__properties__/u:object_r") != nullptr) {
+        if (strstr(buf, "/dev/__properties__/u:object_r:radio_prop:s0") != nullptr) {
+//        if (strstr(buf, "/dev/__properties__/u:object_r") != nullptr) {
             //LOGD("内存读取 ==> %s", buf);
             LOGD("提取地址 ==> %lx--%lx %s", start, end, path);
 
